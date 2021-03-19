@@ -1,0 +1,18 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "appId": "flownodeapp",
+            "appPort": 8000,
+            "label": "daprd-debug",
+            "type": "daprd",
+            "dependsOn": "build",
+            "componentsPath": "../../components_local"
+        },
+        {
+            "appId": "flownodeapp",
+            "label": "daprd-down",
+            "type": "daprd-down"
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flow-api-app
+  labels:
+    app: flow-api-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flow-api-app
+  template:
+    metadata:
+      labels:
+        app: flow-api-app
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "flowapiapp"
+        dapr.io/app-port: "5000"
+        dapr.io/log-level: "debug"
+        dapr.io/config: "appconfig"
+        dapr.io/log-as-json: "true"
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/"
+    spec:
+      containers:
+      - name: flowapiapp
+        image: youracr.azurecr.io/flow-api:latest
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always

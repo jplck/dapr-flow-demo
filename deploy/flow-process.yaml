@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flow-process-app
+  labels:
+    app: flow-process-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flow-process-app
+  template:
+    metadata:
+      labels:
+        app: flow-process-app
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "flowprocessapp"
+        dapr.io/app-port: "6000"
+        dapr.io/log-level: "debug"
+        dapr.io/config: "appconfig"
+    spec:
+      containers:
+      - name: flowprocessapp
+        image: youracr.azurecr.io/flow-process:latest
+        ports:
+        - containerPort: 6000
+        imagePullPolicy: Always
